@@ -10,7 +10,7 @@ import caffe
 
 # V2
 net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V2/MobileNetSSDV2_deploy.prototxt'
-caffe_model='MobileNetSSDV2_deploy_0815.caffemodel'
+caffe_model='MobileNetSSDV2_deploy_0822.caffemodel'
 test_dir = "images"
 result_dir = "result_JPG/"
 if not os.path.exists(caffe_model):

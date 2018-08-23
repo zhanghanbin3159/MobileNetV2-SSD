@@ -5,24 +5,27 @@ import sys,os
 sys.path.append('/media/ziwei/Harddisk02/ziwei/SSD/caffe/python')
 import caffe  
 
-# mobilenet V1
-# train_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1/MobileNetSSD_train.prototxt'
+# mobilenet V1_3categroy without new
+# train_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_3categroy/MobileNetSSD_train.prototxt'
 # train_model = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/snapshot_V1/mobilenet_iter_49000.caffemodel'  #should be your snapshot caffemodel
-#
-# deploy_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1/MobileNetSSD_deploy.prototxt'
-# save_model = 'MobileNetSSD_deploy_49000_2.caffemodel'
+# deploy_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_3categroy/MobileNetSSD_deploy.prototxt'
+# save_model = 'MobileNetSSD_deploy_zhb49000.caffemodel'
 
-# # mobilenet V1 with new
+# # mobilenet V1_2categroy without new
 # train_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_2categroy/MobileNetSSD_train.prototxt'
-# train_model = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/snapshot_V1/0821_without_new_mobilenet_iter_30000.caffemodel'  #should be your snapshot caffemodel
-#
+# train_model = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/snapshot_V1/0822_without_new_mobilenet_iter_30000.caffemodel'  #should be your snapshot caffemodel
 # deploy_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_2categroy/MobileNetSSD_deploy.prototxt'
-# save_model = 'MobileNetSSDV1_deploy_without_new.caffemodel'
+# save_model = 'MobileNetSSDV1_deploy_without_new_0822.caffemodel'
+
+# # mobilenet V1_2categroy with new
+# train_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_2categroy_with_new/MobileNetSSD_train.prototxt'
+# train_model = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/snapshot_V1/0818_with_new_mobilenet_iter_39000.caffemodel'  #should be your snapshot caffemodel
+# deploy_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_2categroy_with_new/MobileNetSSD_deploy.prototxt'
+# save_model = 'MobileNetSSDV1_deploy_with_new.caffemodel'
 
 # mobilenet V2
 train_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V2/MobileNetSSDV2_train.prototxt'
 train_model = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/snapshot_V2/0816_mobilenet_iter_30000.caffemodel'  #should be your snapshot caffemodel
-
 deploy_proto = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V2/MobileNetSSDV2_deploy.prototxt'
 save_model = 'MobileNetSSDV2_deploy_0822.caffemodel'
 
@@ -76,7 +79,7 @@ def merge_bn(net, nob):
                     # if(int(key[4:6]) > 18):
                     #     nob.params[key][1].data[...] = bias
 
-                    # V1
+                    # V1_3categroy
                     nob.params[key][1].data[...] = bias
   
 

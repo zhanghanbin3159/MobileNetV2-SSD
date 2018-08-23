@@ -6,14 +6,19 @@ import cv2
 sys.path.append('/media/ziwei/Harddisk02/ziwei/SSD/caffe/python')
 import caffe  
 
-# # V1(three categroy)
-# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1/MobileNetSSD_deploy.prototxt'
-# caffe_model='MobileNetSSD_deploy_zhb4000.caffemodel'
+# # V1_3categroy(three categroy without_new)
+# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_3categroy/MobileNetSSD_deploy.prototxt'
+# caffe_model='MobileNetSSD_deploy_zhb49000.caffemodel'
 # test_dir = "images"
 
-# # V1(two categroy)
+# # V1_2categroy(two categroy without_new)
 # net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_2categroy/MobileNetSSD_deploy.prototxt'
-# caffe_model='MobileNetSSDV1_deploy_without_new.caffemodel'
+# caffe_model='MobileNetSSDV1_deploy_without_new_0822.caffemodel'
+# test_dir = "images"
+
+# # V1_2categroy(two categroy with_new)
+# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_2categroy_with_new/MobileNetSSD_deploy.prototxt'
+# caffe_model='MobileNetSSDV1_deploy_with_new.caffemodel'
 # test_dir = "images"
 
 # # V2
@@ -54,6 +59,7 @@ def postprocess(img, out):
 
     cls = out['detection_out'][0,0,:,1]
     conf = out['detection_out'][0,0,:,2]
+    print(conf)
     return (box.astype(np.int32), conf, cls)
 
 def detect(imgfile):
@@ -84,5 +90,5 @@ def detect(imgfile):
 # for f in os.listdir(test_dir):
 #     if detect(test_dir + "/" + f) == False:
 #        break
-f = '000000000436.jpg'
+f = '000170.jpg'
 detect(test_dir + "/" + f)
