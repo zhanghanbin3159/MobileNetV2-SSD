@@ -9,8 +9,8 @@ import caffe
 
 
 # V2
-net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V2/MobileNetSSDV2_deploy.prototxt'
-caffe_model='MobileNetSSDV2_deploy_0822.caffemodel'
+net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/old_V2/MobileNetSSDV2_deploy.prototxt'
+caffe_model='old_V2/mobilenetv2_iter_300000.caffemodel'
 test_dir = "images"
 result_dir = "result_JPG/"
 if not os.path.exists(caffe_model):
@@ -20,7 +20,13 @@ if not os.path.exists(caffe_model):
 # caffe.set_mode_gpu()
 # caffe.set_device(2)
 net = caffe.Net(net_file,caffe_model,caffe.TEST)  
-CLASSES = ('background','person')
+CLASSES = ('background',
+           'aeroplane', 'bicycle', 'bird', 'boat',
+           'bottle', 'bus', 'car', 'cat', 'chair',
+           'cow', 'diningtable', 'dog', 'horse',
+           'motorbike', 'person', 'pottedplant',
+            'sheep', 'sofa', 'train', 'tvmonitor'
+           )
 def preprocess(src):
     img = cv2.resize(src, (300,300))
     img = img - 127.5
@@ -77,15 +83,15 @@ def detect(imgfile):
        #pdb.set_trace()
        cv2.imwrite(result_dir+imgfile.split('/')[-1],origimg)
        print(result_dir+imgfile.split('/')[-1])
-#cv2.imshow("SSD", origimg)
- 
-#k = cv2.waitKey(0) & 0xff
-        #Exit if ESC pressed
-#if k == 27 : return False
-#return True
+    cv2.imshow("SSD", origimg)
 
-# for f in os.listdir(test_dir):
-#     if detect(test_dir + "/" + f) == False:
-       # break
-f = '000001.jpg'
-detect(test_dir + "/" + f)
+    k = cv2.waitKey(0) & 0xff
+            # Exit if ESC pressed
+    if k == 27 : return False
+    return True
+
+for f in os.listdir(test_dir):
+    if detect(test_dir + "/" + f) == False:
+       break
+# f = '000001.jpg'
+# detect(test_dir + "/" + f)

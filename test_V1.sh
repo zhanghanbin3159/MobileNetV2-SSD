@@ -1,5 +1,5 @@
 #!/bin/sh
-latest=snapshot_V1/0822_without_new_mobilenet_iter_30000.caffemodel
+latest=mobilenet_iter_73000.caffemodel
 #latest=$(ls -t snapshot/*.caffemodel | head -n 1)
 if test -z $latest; then
 	exit 1

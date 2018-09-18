@@ -3,11 +3,11 @@ import sys,os
 import cv2
 # caffe_root = '/media/ziwei/Harddisk02/ziwei/SSD/caffe/'
 # sys.path.insert(0, caffe_root + 'python')
-sys.path.append('/media/ziwei/Harddisk02/ziwei/SSD/caffe/python')
+sys.path.append('/media/ziwei/Harddisk02/HanBin/TOOL/workspace_caffe/ssd/python')
 import caffe  
 
-# # V1_3categroy(three categroy without_new)
-# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_3categroy/MobileNetSSD_deploy.prototxt'
+# # V1_3category(three categroy without_new)
+# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_3category/MobileNetSSD_deploy.prototxt'
 # caffe_model='MobileNetSSD_deploy_zhb49000.caffemodel'
 # test_dir = "images"
 
@@ -17,14 +17,24 @@ import caffe
 # test_dir = "images"
 
 # # V1_2categroy(two categroy with_new)
-# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_2categroy_with_new/MobileNetSSD_deploy.prototxt'
-# caffe_model='MobileNetSSDV1_deploy_with_new.caffemodel'
-# test_dir = "images"
+net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V1_4_sp/MobileNetSSD_deploy.prototxt'
+caffe_model='0915_mobilenetv1_4_100000.caffemodel'
+test_dir = "images"
 
 # # V2
-net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V2/MobileNetSSDV2_deploy.prototxt'
-caffe_model='MobileNetSSDV2_deploy_0822.caffemodel'
-test_dir = "images"
+# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V2/MobileNetSSDV2_deploy.prototxt'
+# caffe_model='MobileNetSSDV2_deploy_3category_10000.caffemodel'
+# test_dir = "images"
+
+# # V2_4
+# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/example/V2_4category/MobileNetSSDV2_deploy.prototxt'
+# caffe_model='MobileNetSSDV2_4_deploy_50000.caffemodel'
+# test_dir = "images"
+
+# # V2_old
+# net_file= '/media/ziwei/Harddisk02/ziwei/SSD/caffe/examples/MobileNet-SSD-zhb/old_V2/MobileNetSSDV2_deploy.prototxt'
+# caffe_model='old_V2/mobilenetv2_iter_300000.caffemodel'
+# test_dir = "images"
 
 if not os.path.exists(caffe_model):
     print("MobileNetSSD_deploy.caffemodel does not exist,")
@@ -35,6 +45,8 @@ net = caffe.Net(net_file,caffe_model,caffe.TEST)
 CLASSES = ('background',
            'person'
            # ,'face'
+            ,'car',
+            'bicycle'
            )
 
 # CLASSES = ('background',
@@ -59,7 +71,7 @@ def postprocess(img, out):
 
     cls = out['detection_out'][0,0,:,1]
     conf = out['detection_out'][0,0,:,2]
-    print(conf)
+    print(cls,conf)
     return (box.astype(np.int32), conf, cls)
 
 def detect(imgfile):
@@ -74,6 +86,8 @@ def detect(imgfile):
     box, conf, cls = postprocess(origimg, out)
 
     for i in range(len(box)):
+       # if CLASSES[int(cls[i])] != 'person':
+       #     continue
        p1 = (box[i][0], box[i][1])
        p2 = (box[i][2], box[i][3])
        cv2.rectangle(origimg, p1, p2, (0,255,0))
@@ -87,8 +101,8 @@ def detect(imgfile):
     if k == 27 : return False
     return True
 
-# for f in os.listdir(test_dir):
-#     if detect(test_dir + "/" + f) == False:
-#        break
-f = '000170.jpg'
-detect(test_dir + "/" + f)
+for f in os.listdir(test_dir):
+    if detect(test_dir + "/" + f) == False:
+       break
+# f = '1111.jpg'
+# detect(test_dir + "/" + f)

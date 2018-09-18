@@ -24,7 +24,9 @@ args = vars(ap.parse_args())
 #     "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
 #     "dog", "horse", "motorbike", "person", "pottedplant", "sheep",
 #     "sofa", "train", "tvmonitor"]
-CLASSES = ["background", "person"]
+CLASSES = ["background", "person"
+           # ,"face"
+           ]
 # IGNORE = set(["person"])
 IGNORE = set()
 COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
@@ -45,7 +47,7 @@ while True:
     # grab the frame from the threaded video stream and resize it
     # to have a maximum width of 400 pixels
     frame = vs.read()
-    frame = imutils.resize(frame, width=400)
+    # frame = imutils.resize(frame, width=400)
 
     # grab the frame dimensions and convert it to a blob
     (h, w) = frame.shape[:2]
